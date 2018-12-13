@@ -53,10 +53,20 @@ class ArticleController {
       .then(data => {
         if(!data) {
           View.display(`Data not found!`)
+          process.exit()
         } else {
-          View.display(data.dataValues)
-        }
-        process.exit()
+          var table = new Table({
+            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+                   , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+                   , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+                   , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }
+          });
+           let header = Object.keys(data.dataValues).map(x => chalk.red(x))
+          table.push(
+            header, Object.values(data.dataValues)
+          );
+          View.display(table.toString())
+          process.exit()        }
       })
       .catch(err => {
         View.disErr(err)
