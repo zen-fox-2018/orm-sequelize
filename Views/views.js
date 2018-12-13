@@ -19,6 +19,15 @@ class Views {
     static showDeleted(data) {
         console.log(data)
     }
+
+
+    static showAddedArticle(data) {
+        console.log(data)
+    }
+
+    static showAddedTags(input) {
+        console.log(input)
+    }
 }
 
 module.exports = Views
