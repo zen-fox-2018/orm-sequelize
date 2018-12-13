@@ -1,6 +1,8 @@
 const View = require('../views/View')
 const Author = require('../models').Author
 const Sequelize = require('sequelize');
+var Table = require('cli-table');
+const chalk = require('chalk');
 
 class AuthorController {
   static execute(input) {
@@ -55,13 +57,25 @@ class AuthorController {
       .then(data => {
         if(!data) {
           View.display(`Data not found!`)
+          process.exit()
         } else {
-          View.display(data.dataValues)
+          var table = new Table({
+            chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+                   , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+                   , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+                   , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }
+          });
+           let header = Object.keys(data.dataValues).map(x => chalk.blue(x))
+          table.push(
+            header, Object.values(data.dataValues)
+          );
+          View.display(table.toString())
+          process.exit()
         }
-        process.exit()
       })
       .catch(err => {
         View.disErr(err)
+        process.exit()
       })
   }
 
@@ -132,9 +146,20 @@ class AuthorController {
     }
     Author.findAll(where)
       .then(data => {
-        data.forEach(element => {
-          View.display(element.dataValues)
+        var table = new Table({
+          chars: { 'top': '═' , 'top-mid': '╤' , 'top-left': '╔' , 'top-right': '╗'
+                 , 'bottom': '═' , 'bottom-mid': '╧' , 'bottom-left': '╚' , 'bottom-right': '╝'
+                 , 'left': '║' , 'left-mid': '╟' , 'mid': '─' , 'mid-mid': '┼'
+                 , 'right': '║' , 'right-mid': '╢' , 'middle': '│' }
         });
+         let header = Object.keys(data[0].dataValues).map(x => chalk.cyanBright(x))
+        table.push(
+          header
+        );
+        for (let i in data) {
+          table.push(Object.values(data[i].dataValues))
+        }
+        View.display(table.toString())
         process.exit()
       })
       .catch(err => {

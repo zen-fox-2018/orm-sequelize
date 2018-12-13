@@ -27,7 +27,7 @@ class View {
   }
 
   static display(data) {
-    console.log(`====================================================\n`, data)
+    console.log( data)
   }
 
   static disErr(err) {
