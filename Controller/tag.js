@@ -9,10 +9,9 @@ class TagsController {
         let TagsObj = {
             name: name
         }
-
         Tags.create(TagsObj).then(data => {
-            // console.log(data)
-            Views.showAddedTags(data.dataValues)
+            Views.showAddedTags(data.dataValues);
+            process.exit()
         }).catch(err => {
             throw err
         })
@@ -20,17 +19,18 @@ class TagsController {
 
     static readOne(id) {
         Tags.findOne({where:{id:id}}).then(found => {
-            Views.showFindByOne(found.dataValues)
+            Views.showFindByOne(found.dataValues);
+            process.exit()
         }).catch(err => {
             throw "Sorry it seems that this tag does not exists!"
         })
     }
 
     static readAll() {
-        Tags.findAll()
-        Tags.then(all => {
+        Tags.findAll().then(all => {
             all.forEach(element => {
-                Views.showFindAll(element.dataValues)
+                Views.showFindAll(element.dataValues);
+                process.exit()
             });
         }).catch(err => {
             throw err

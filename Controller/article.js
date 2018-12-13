@@ -34,7 +34,8 @@ class ArticleController {
     static readAll() {
         Article.findAll().then(all => {
             all.forEach(element => {
-                Views.showFindAll(element.dataValues)
+                Views.showFindAll(element.dataValues);
+                process.exit()
             });
             process.exit()
         }).catch(err => {
@@ -46,7 +47,8 @@ class ArticleController {
         Article.update({where:{
             title: name
         }}).then(updated => {
-            Views.showUpdated(updated)
+            Views.showUpdated(updated);
+            process.exit()
         }).catch(err => {
             throw err
         })
