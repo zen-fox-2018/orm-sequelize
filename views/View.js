@@ -7,6 +7,9 @@ class View {
     author read_all --> read_all
     author update --> update <space> 'data yang ingin diupdate dan idnya'
     author delete --> delete <space> 'id author'
+    author read_all --> <field> <command> <value>
+    field : FirstName, LastName, religion, gender, age
+    command: between, like, notlike, equal, greater
     ========================================================================
     tag add --> add <space> 'data yg ingin dimasukan'
     tag read_one --> read_one <space> 'tag id'
