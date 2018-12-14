@@ -29,6 +29,11 @@ class View {
         process.exit() 
     }
 
+    static deleteSuccess(id) {
+        console.log(`===-Data id ${id} berhasil didelete-===`)
+        process.exit() 
+    }
+
     static showError(err) {
         console.log(err)
     }

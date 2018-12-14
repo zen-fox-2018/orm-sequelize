@@ -70,6 +70,20 @@ class ControllerAuthor {
                 view.showError(err);
             });
     }
+
+    static delete(id) {
+        Author.destroy({
+          where: {
+            id: id
+          }
+        })
+          .then(data  => {
+            view.deleteSuccess(id);
+          })
+          .catch(err => {
+            view.showError(err);
+          });
+      }
 }
 
 module.exports = ControllerAuthor
