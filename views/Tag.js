@@ -1,3 +1,4 @@
+const Table = require('cli-table')
 class Tag {
   static showErr(err) {
     console.log('ERROR :');
@@ -11,11 +12,26 @@ class Tag {
   }
 
   static showData(data) {
-    console.log(`
-============ your result ===============================================================
-${JSON.stringify(data, null, 2)}
-========================================================================================
-`);
+    const table = new Table({
+      head : Object.keys(data.dataValues),
+      colWidths : [5,50,30,30]
+    });
+    table.push(Object.values(data.dataValues));
+    console.log(table.toString());
+    process.exit();
+  }
+
+  static showAllData(data) {
+  const table = new Table({
+    head : Object.keys(data[0].dataValues),
+    colWidths : [5,50,30,30]
+  });
+
+  data.forEach( d => {
+    table.push(Object.values(d.dataValues));
+  })
+
+  console.log(table.toString());
   process.exit();
   }
 

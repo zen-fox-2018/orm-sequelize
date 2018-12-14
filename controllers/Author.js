@@ -22,7 +22,12 @@ class Author {
   static findOne(data) {
     Model.Author.findByPk(data[0])
       .then((author) => {
-        AuthorView.showData(author)
+        if (author) {
+          // console.log(author.dataValues);
+          AuthorView.showData(author)
+        } else {
+          AuthorView.showErr(`Author is empty`);
+        }
       })
 
       .catch((err) => {
@@ -33,7 +38,11 @@ class Author {
   static findAll() {
     Model.Author.findAll()
       .then((authors) => {
-        AuthorView.showData(authors)
+        if (authors.length) {
+          AuthorView.showAllData(authors)
+        } else {
+          AuthorView.showErr(`Author is empty`);
+        }
       })
 
       .catch((err) => {

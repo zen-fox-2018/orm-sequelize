@@ -18,7 +18,11 @@ class Tag {
   static findOne(data) {
     Model.Tag.findByPk(data[0])
       .then((tag) => {
-        TagView.showData(tag)
+        if (tag) {
+          TagView.showData(tag);
+        } else {
+          TagView.showErr(`Tag is empty.`);
+        }
       })
 
       .catch((err) => {
@@ -29,7 +33,11 @@ class Tag {
   static findAll() {
     Model.Tag.findAll()
       .then((tags) => {
-        TagView.showData(tags)
+        if (tags.length) {
+          TagView.showAllData(tags)
+        } else {
+          TagView.showErr(`Tag is empty.`)
+        }
       })
 
       .catch((err) => {

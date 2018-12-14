@@ -27,7 +27,11 @@ class Article {
   static findOne(data) {
     Model.Article.findByPk(data[0])
       .then((Article) => {
-        ArticleView.showData(Article)
+        if (Article) {
+          ArticleView.showData(Article);
+        } else {
+          ArticleView.showErr(`Article is empty.`);
+        }
       })
 
       .catch((err) => {
@@ -38,7 +42,11 @@ class Article {
   static findAll() {
     Model.Article.findAll()
       .then((Articles) => {
-        ArticleView.showData(Articles)
+        if (Articles.length) {
+          ArticleView.showAllData(Articles)
+        } else {
+          ArticleView.showErr(`Article is empty.`)
+        }
       })
 
       .catch((err) => {

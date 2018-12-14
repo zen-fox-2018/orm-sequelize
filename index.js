@@ -90,6 +90,12 @@ class Orm {
         }
       break;
 
+      case 'help':
+        Author.help();
+        Article.help();
+        Tag.help();
+        break;
+
       default:
         Author.help();
         Article.help();
