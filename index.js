@@ -5,10 +5,6 @@ const ControllerAuthor = require('./controllers/controllerAuthor')
 const table = argv[0]
 const command = argv[1]
 
-// const [...args] = argv
-
-// const [table, command, ...args] = argv
-
 if (table == 'author') {
     switch (command) {
         case 'add':
