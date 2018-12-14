@@ -22,13 +22,28 @@ article delete -> delete<space> "masukkan id author"`)
   }
 
   static addSucceed(data) {
-    console.log(`Success create Author ${data}`);
+    console.log(`Success create Author ${data.first_name}`);
   }
 
   static displayErr(err) {
     console.log(`ERR: `, err);
   }
 
+  static allData(data) {
+    console.log(data);
+  }
+
+  static readDatabyId(data) {
+    console.log(data);
+  }
+
+  static updateData(data) {
+    console.log(`your data has been updated: `, data);
+  }
+
+  static deleteDataSucceed(id) {
+    console.log(`Data with ID ${id} has been successfully deleted`);
+  } 
 }
 
 module.exports = View;
