@@ -3,6 +3,8 @@ const View = require('../views/View')
 
 class ArticleController {
     static addArticle(arrData) {
+        if(arrData.length < 4)  return View.showErr(`Data Harus Lengkap`)
+
        Model.Article.create({
             title: arrData[0],
             body: arrData[1],
@@ -20,9 +22,7 @@ class ArticleController {
     static readAllArticle() {
         Model.Article.findAll()
         .then(dataAll => {
-            dataAll.forEach(data => {
-                View.showData(data.dataValues)
-            });
+           View.showMuchData(dataAll)
         })
         .catch(err => {
             View.showErr(err)
@@ -30,6 +30,7 @@ class ArticleController {
     }
 
     static findArticleById(id) {
+        if(!id && id < 0) return View.showErr(`Id Must number`)
 
         Model.Article.findByPk(id)
         .then(dataAuthor =>  {
@@ -41,6 +42,8 @@ class ArticleController {
     }
 
     static updateArticle(arrData) {
+        if(arrData.length < 4)  return View.showErr(`Data Harus Lengkap`)
+        if(arrData[0] < 0) return View.showErr(`Id Must number`)
         
         Model.Article.update({
             title: arrData[1],
@@ -61,6 +64,8 @@ class ArticleController {
     }
 
     static deleteArticle(id) {
+        if(!id && id < 0) return View.showErr(`Id Must number`)
+
         Model.Article.destroy({
             where: {
                 id : id

@@ -5,6 +5,12 @@ class View {
         
     }
 
+    static showMuchData(data) {
+        data.forEach(dataAll=> {
+            console.log(dataAll[i].dataValues);
+            
+        })
+    }
     static showErr(err) {
         console.log(err);
         

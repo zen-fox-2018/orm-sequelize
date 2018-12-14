@@ -5,6 +5,8 @@ const View = require('../views/View')
 class TagController{
 
     static addTag(arrData) {
+        if(arrData.length < 2)  return View.showErr(`Data Harus Lengkap`)
+
         Model.Tags.create({
             name: arrData
         })
@@ -30,6 +32,7 @@ class TagController{
 
 
     static findTagById(id) {
+        if(!id && id < 0) return View.showErr(`Id Must number`)
 
         Model.Tags.findByPk(id)
         .then(dataTag =>  {
@@ -41,6 +44,8 @@ class TagController{
     }
 
     static updateTag(arrData) {
+        if(arrData.length < 2)  return View.showErr(`Data Harus Lengkap`)
+        if(arrData[0] < 0) return View.showErr(`Id Must number`)
         
         Model.Tags.update({
             name: arrData[1]
@@ -58,6 +63,8 @@ class TagController{
     }
 
     static deleteTag(id) {
+        if(!id && id < 0) return View.showErr(`Id Must number`)
+
         Model.Tags.destroy({
             where: {
                 id : id

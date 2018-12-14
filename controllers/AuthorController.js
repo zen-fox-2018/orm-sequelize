@@ -3,6 +3,8 @@ const View = require('../views/View')
 
 class AuthorController {
     static addAuthor(arrData) {
+        if(arrData.length < 6) return View.showErr(`Data Harus Lengkap`)
+
        Model.Authors.create({
             first_name: arrData[0],
             last_name: arrData[1],
@@ -21,9 +23,7 @@ class AuthorController {
     static readAllAuthor() {
         Model.Authors.findAll()
         .then(dataAll => {
-            dataAll.forEach(data => {
-                View.showData(data.dataValues)
-            });
+            View.showMuchData(dataAll)
         })
         .catch(err => {
             View.showErr(err)
@@ -31,6 +31,7 @@ class AuthorController {
     }
 
     static findAuthorById(id) {
+        if(!id && id < 0) return View.showErr(`Id Must number`)
 
         Model.Authors.findByPk(id)
         .then(dataAuthor =>  {
@@ -42,6 +43,8 @@ class AuthorController {
     }
 
     static updateAuthor(arrData) {
+        if(arrData.length < 6) return View.showErr(`Data Harus Lengkap`)
+        if(arrData[0] < 0) return View.showErr(`Id Must number`)
         
         Model.Authors.update({
             first_name: arrData[1],
@@ -63,6 +66,8 @@ class AuthorController {
     }
 
     static deleteAuthor(id) {
+        if(!id && id < 0) return View.showErr(`Id Must number`)
+
         Model.Authors.destroy({
             where: {
                 id : id
