@@ -1,3 +1,5 @@
+const Table = require('cli-table')
+
 class View {
     
     static cliTable(data) {
@@ -6,7 +8,12 @@ class View {
 
     static add(data) {
         console.log('=========== new data created ===========');
-        console.log(data);
+        const table = new Table({
+          head : Object.keys(data.dataValues),
+          colWidths : [5,20,50,15,15,5,30,30]
+        });
+        table.push(Object.values(data.dataValues));
+        console.log(table.toString());
         console.log('========================================');
         process.exit()
     }
@@ -19,11 +26,16 @@ class View {
     }
 
     static displayAll(data) {
-        console.log('============= your result ==============');
-        data.forEach(e => {
-            console.log(e.dataValues);
+        // console.log('============= your result ==============');
+        const table = new Table({
+          head : Object.keys(data[0].dataValues),
+          colWidths : [3,20,50,15,15,5,30,30]
         });
-        console.log('========================================');
+        data.forEach(e => {
+            table.push(Object.values(e.dataValues));
+        });
+        console.log(table.toString());
+        // console.log('========================================');
         process.exit()
     }
 
